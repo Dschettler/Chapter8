@@ -18,11 +18,23 @@ public class BankAccount {
         this.name = name;
     }
 
-    public void PrintDetails() {
-        System.out.println(this.name + ": $" + String.format("%,.2f", this.balance));
+
+    @Override
+    public String toString() {
+        return this.name + ": $" + String.format("%,.2f", this.balance);
     }
-
-
+    
+     public String toString(String formatter) {
+         if (formatter == "P") {
+             return this.name + " - " + this.balance;
+         }
+         else {
+             return this.name + ": $" + String.format("%,.2f", this.balance);
+         }
+         
+    }
+    
+    
     public double getBalance() {
         return balance;
     }
@@ -35,7 +47,11 @@ public class BankAccount {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String name) throws Exception {
+        if (Utilities.IsValidAccountName(name)) {
+            this.name = name;
+        } else {
+            throw new Exception("Account name must be 3 or more characters");
+        }
     }
 }
